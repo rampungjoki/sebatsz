@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebatsz - Naikkan Rankmu, Biar Santai Kayak Sebat!</title>
+    <style>
+        /* CSS Reset */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a1a; /* Dark background */
+            color: #f0f0f0; /* Light text */
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header & Navbar */
+        header {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+            color: #fff;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.5s ease-out 0.2s forwards;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li:first-child {
+            margin-left: 0;
+        }
+
+        nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #e53935; /* Red accent */
+        }
+
+        /* Mobile Navbar Toggle */
+        .mobile-nav-toggle {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #222; /* Solid dark background for mobile nav */
+            padding-top: 60px;
+            z-index: 101;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-nav.open {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0 20px;
+        }
+
+        .mobile-nav ul li {
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-nav ul li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: #e53935;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #262626;
+            padding: 80px 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out 0.4s forwards;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .hero h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e53935; /* Red accent */
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c62828;
+        }
+
+        .arrow-icon {
+            fill: #fff;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        /* Services Section */
+        #layanan {
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.5s ease-out 0.6s forwards;
+        }
+
+        #layanan h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        #layanan h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        .services-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .service-card {
+            width: 300px;
+            background-color: #262626;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-left: 5px solid #fdd835; /* Yellow accent */
+        }
+
+        .service-card:nth-child(2) {
+            border-left-color: #00c853; /* Green accent */
+        }
+
+        .service-card:nth-child(3) {
+            border-left-color: #3f51b5; /* Indigo accent */
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .service-card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+
+        .service-card p {
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .order-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e53935; /* Red accent */
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-button:hover {
+            background-color: #c62828;
+        }
+
+        .cart-icon {
+            font-size: 1.2em;
+            margin-left: 10px;
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us {
+            padding: 60px 0;
+            text-align: center;
+            background-color: #222;
+        }
+
+        .why-choose-us h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .why-choose-us h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        .why-choose-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding: 0 30px;
+            flex-wrap: wrap; /* Make it wrap for smaller screens */
+        }
+
+        .why-choose-card {
+            background-color: #262626;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-top: 5px solid #fdd835; /* Default accent */
+            width: calc(33.33% - 20px); /* Adjust width for 3 cards with gap */
+            min-width: 250px; /* Minimum width for responsiveness */
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+
+        .why-choose-card:nth-child(2) {
+            border-top-color: #00c853; /* Green accent */
+        }
+
+        .why-choose-card:nth-child(3) {
+            border-top-color: #3f51b5; /* Indigo accent */
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .why-choose-card h3 {
+            color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .why-choose-card p {
+            color: #ddd;
+        }
+
+        /* Pricing Section */
+        #harga {
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.5s ease-out 0.6s forwards;
+            background-color: #262626; /* Darker background for contrast */
+        }
+
+        #harga h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        #harga h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        .pricing-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .pricing-card {
+            background-color: #333; /* Slightly lighter dark background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-top: 5px solid #fdd835; /* Yellow accent for pricing */
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .pricing-card h3 {
+            color: #f0f0f0;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+
+        .pricing-card h3 svg {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .pricing-card .price-container {
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .price-container .start-from {
+            color: #ddd;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .pricing-card .price {
+            color: #e53935; /* Red accent */
+            font-size: 2em;
+        }
+
+        .pricing-card .price span {
+            font-size: 0.75em;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card ul li {
+            color: #ddd;
+            padding: 8px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card .order-button {
+            background-color: #fdd835; /* Yellow for pricing order */
+            color: #333;
+        }
+
+        .pricing-card .order-button:hover {
+            background-color: #fbc02d;
+        }
+
+        /* Testimonials Section */
+        #testimoni {
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.5s ease-out 0.6s forwards;
+            background-color: #222;
+        }
+
+        #testimoni h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        #testimoni h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        .testimonial-slider-wrapper {
+            position: relative;
+            width: 320px; /* Width of the phone cover */
+            height: 480px; /* Height of the phone cover */margin: 30px auto;
+            background-color: #fdd835; /* Bright yellow cover */
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .testimonial-slide img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .slider-button {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Consultation Section */
+        #konsultasi {
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.5s ease-out 0.6s forwards;
+            background-color: #262626;
+        }
+
+        #konsultasi h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #e53935; /* Red accent */
+            border-bottom: 3px solid #e53935; /* Elegant underline */
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        #konsultasi h2:hover {
+            border-bottom-color: #fdd835; /* Interactive underline color */
+        }
+
+        #konsultasi p {
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .consultation-button {
+            display: inline-block;
+            background-color: #4caf50; /* Green for WhatsApp */
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .consultation-button:hover {
+            background-color: #43a047;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333; /* Different color for footer */
+            color: #ddd;
+            text-align: center;
+            padding: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out 0.8s forwards;
+            border-top: 1px solid #555; /* Separator from main content */
+            font-size: 0.9em;
+        }
+
+        footer p::before {
+            content: "Bagian dari ";
+            color: #aaa;
+        }
+
+        footer a {
+            color: #fdd835;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            nav {
+                display: none; /* Hide desktop navigation */
+            }
+
+            .mobile-nav-toggle {
+                display: block; /* Show mobile navigation toggle */
+            }
+
+            .services-grid, .pricing-wrapper, .why-choose-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .service-card, .pricing-card, .why-choose-card {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+
+            .testimonial-slider-wrapper {
+                width: 280px;
+                height: 420px;
+            }
+
+            .why-choose-grid {
+                flex-direction: column; /* Stack cards on mobile */
+                align-items: center;
+            }
+
+            .why-choose-card {
+                width: 90%;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a, .mobile-nav a');
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const closeBtn = document.querySelector('.close-btn');
+            const heroBtn = document.querySelector('.hero .btn');
+            const serviceOrderButtons = document.querySelectorAll('.service-card .order-button');
+            const pricingConsultButtons = document.querySelectorAll('.pricing-card .order-button');
+            const testimonialSlider = document.querySelector('.testimonial-slider');
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const prevButton = document.querySelector('.prev-slide');
+            const nextButton = document.querySelector('.next-slide');
+            let currentIndex = 0;
+
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+
+                    // Close mobile nav after clicking a link
+                    if (mobileNav.classList.contains('open')) {
+                        mobileNav.classList.remove('open');
+                    }
+                });
+            });
+
+            // Smooth scroll for "Lihat Layanan Kami" button
+            if (heroBtn) {
+                heroBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+                heroBtn.innerHTML = 'Lihat Layanan Kami <svg class="arrow-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>';
+            }
+
+            // Add cart emoji to "Pesan Sekarang" buttons
+            serviceOrderButtons.forEach(button => {
+                const originalText = button.textContent.trim();
+                button.innerHTML = `${originalText} 🛒`;
+            });
+
+            // Improve pricing text layout
+            const pricingCards = document.querySelectorAll('.pricing-card');
+            pricingCards.forEach(card => {
+                const priceContainer = card.querySelector('.price');
+                const priceValue = priceContainer.textContent;
+                priceContainer.innerHTML = `<span class="start-from">Mulai dari</span> <span class="price-value">${priceValue}</span>`;
+            });
+
+            const priceHeadings = document.querySelectorAll('.pricing-card h3');
+            priceHeadings.forEach(h3 => {
+                let icon = '';
+                if (h3.textContent.toLowerCase().includes('rank')) {
+                    icon = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M5 21h14v-2H5v2zm8-11l-4 4h3v6h2v-6h3l-4-4z"/></svg>';
+                } else if (h3.textContent.toLowerCase().includes('winrate')) {
+                    icon = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M3 17h18v2H3v-2zm6-7l3 3 5-5L16 9l-5 5-3-3L5 12z"/></svg>';
+                } else if (h3.textContent.toLowerCase().includes('event')) {
+                    icon = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5 2.24-5 5-5 5 2.24 5 5zm-5 7c3.87 0 7-3.13 7-7s-3.13-7-7-7-7 3.13-7 7 3.13 7 7 7zm-5-7c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3-3-1.34-3-3zm10 0c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3-3-1.34-3-3z"/></svg>';
+                }
+                h3.innerHTML = icon + ' ' + h3.textContent;
+            });
+
+            // Why Choose Us cards (displaying only 3)
+            const whyChooseGrid = document.querySelector('.why-choose-grid');
+            if (whyChooseGrid) {
+                const reasons = [
+                    { title: '🏆 Pro & Berpengalaman', description: 'Tim joki profesional dengan jam terbang tinggi di Mobile Legends.' },
+                    { title: '🔒 Aman & Terpercaya', description: 'Keamanan akun Anda adalah prioritas utama kami. Privasi data terjamin.' },
+                    { title: '⚡️ Proses Cepat', description: 'Pengerjaan joki yang efisien tanpa mengorbankan kualitas hasil.' },
+                ];
+                whyChooseGrid.innerHTML = ''; // Clear any previous content
+                reasons.forEach(reason => {
+                    const card = document.createElement('div');
+                    card.classList.add('why-choose-card');
+                    card.innerHTML = `<h3>${reason.title}</h3><p>${reason.description}</p>`;
+                    whyChooseGrid.appendChild(card);
+                    console.log("Card ditambahkan:", reason.title); // Tambahkan log
+                });
+                console.log("Elemen whyChooseGrid ditemukan:", whyChooseGrid); // Tambahkan log
+            } else {
+                console.log("Elemen whyChooseGrid tidak ditemukan!"); // Tambahkan log jika tidak ditemukan
+            }
+
+            // Testimonial slider functionality
+            function updateSlider() {
+                testimonialSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+
+            function nextSlide() {
+                currentIndex = Math.min(slides.length - 1, currentIndex + 1);
+                updateSlider();
+            }
+
+            function prevSlide() {
+                currentIndex = Math.max(0, currentIndex - 1);
+                updateSlider();
+            }
+
+            if (prevButton && nextButton) {
+                prevButton.addEventListener('click', prevSlide);
+                nextButton.addEventListener('click', nextSlide);
+            }
+
+            // Automatic slideshow (optional)
+            // setInterval(() => {
+            //     nextSlide();
+            // }, 3000);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <div class="logo-container">
+                <img src="sebatsz.jpeg" alt="Sebatsz Logo" class="logo">
+                <h1>Sebatsz</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#layanan">Layanan</a></li>
+                    <li><a href="#harga">Harga</a></li>
+                    <li><a href="#testimoni">Testimoni</a></li>
+                    <li><a href="#konsultasi">Konsultasi</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">☰</div>
+        </div>
+        <div class="mobile-nav">
+            <span class="close-btn">✕</span>
+            <ul>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#harga">Harga</a></li>
+                <li><a href="#testimoni">Testimoni</a></li>
+                <li><a href="#konsultasi">Konsultasi</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Capek Stuck di Rank Mythic?</h2>
+            <p>Sebatsz siap gendong kamu sampai Glory! Layanan joki Mobile Legends profesional dan terpercaya. Raih impian rank tertinggimu bersama tim Sebatsz!</p>
+            <a href="#layanan" class="btn">Lihat Layanan Kami</a>
+        </div>
+    </section>
+
+    <section id="layanan" class="services">
+        <div class="container">
+            <h2>Layanan Kami</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-content">
+                        <h3>Joki Rank</h3>
+                        <p>Raih rank impianmu dengan cepat dan aman. Tim pro kami siap membantu Anda mencapai Mythical Glory!</p>
+                        <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20pesan%20jasa%20Joki%20Rank." class="order-button" target="_blank">Pesan Sekarang</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-content">
+                        <h3>Joki Winrate</h3>
+                        <p>Tingkatkan statistik kemenangan akunmu agar terlihat lebih profesional dan menakutkan bagi lawan!</p>
+                        <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20pesan%20jasa%20Joki%20Winrate." class="order-button" target="_blank">Pesan Sekarang</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-content">
+                        <h3>Joki Event</h3>
+                        <p>Jangan lewatkan hadiah eksklusif dari setiap event! Biarkan kami selesaikan semua misinya untukmu.</p>
+                        <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20pesan%20jasa%20Joki%20Event." class="order-button" target="_blank">Pesan Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+        <div class="container">
+            <h2>Mengapa Memilih Kami?</h2>
+            <div class="why-choose-grid">
+                </div>
+        </div>
+    </section>
+
+    <section id="harga" class="pricing">
+        <div class="container">
+            <h2>Daftar Harga Spesial</h2>
+            <div class="pricing-wrapper">
+                <div class="pricing-card">
+                    <h3><svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M5 21h14v-2H5v2zm8-11l-4 4h3v6h2v-6h3l-4-4z"/></svg> Rank Booster</h3>
+                    <div class="price-container">
+                        <span class="start-from">Mulai dari</span>
+                        <span class="price">Rp 10K / Bintang</span>
+                    </div>
+                    <ul>
+                        <li>Pengerjaan Cepat ⚡️</li>
+                        <li>Aman & Terpercaya 🛡️</li>
+                        <li>Bisa Request Hero (opsional) 🦸</li>
+                    </ul>
+                    <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20tanya%20tentang%20harga%20Joki%20Rank." class="order-button" target="_blank">Konsultasi Harga</a>
+                </div>
+                <div class="pricing-card">
+                    <h3><svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M3 17h18v2H3v-2zm6-7l3 3 5-5L16 9l-5 5-3-3L5 12z"/></svg> Winrate Specialist</h3>
+                    <div class="price-container">
+                        <span class="start-from">Mulai dari</span>
+                        <span class="price">Rp 20K / Match</span>
+                    </div>
+                    <ul>
+                        <li>Target Winrate Fleksibel 🎯</li>
+                        <li>Statistik Akun Terjaga ✅</li>
+                        <li>Pro Player Berpengalaman 💪</li>
+                    </ul>
+                    <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20tanya%20tentang%20harga%20Joki%20Winrate." class="order-button" target="_blank">Konsultasi Harga</a>
+                </div>
+                <div class="pricing-card">
+                    <h3><svg viewBox="0 0 24 24" fill="currentColor" style="width:1.2em; height:1.2em;"><path d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5 2.24-5 5-5 5 2.24 5 5zm-5 7c3.87 0 7-3.13 7-7s-3.13-7-7-7-7 3.13-7 7 3.13 7 7 7zm-5-7c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3-3-1.34-3-3zm10 0c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3-3-1.34-3-3z"/></svg> Event Hunter</h3>
+                    <div class="price-container">
+                        <span class="start-from">Mulai dari</span>
+                        <span class="price">Rp 25K / Event</span>
+                    </div>
+                    <ul>
+                        <li>Semua Hadiah Dijamin 🎁</li>
+                        <li>Pengerjaan Tepat Waktu ⏰</li>
+                        <li>Komunikasi Lancar 🗣️</li>
+                    </ul>
+                    <a href="https://wa.me/6281292398570?text=Halo%20Sebatsz,%20saya%20mau%20tanya%20tentang%20harga%20Joki%20Event." class="order-button" target="_blank">Konsultasi Harga</a>
+                </div>
+            </div>
+            <p style="color: #ddd; margin-top: 20px;">*Harga dapat bervariasi tergantung tingkat kesulitan dan permintaan khusus.</p>
+        </div>
+    </section>
+
+    <section id="testimoni" class="testimonials">
+        <div class="container">
+            <h2>Kata Mereka Tentang Sebatsz</h2>
+            <div class="testimonial-slider-wrapper">
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide"><img src="testimoni1.jpeg" alt="Testimoni 1"></div>
+                    <div class="testimonial-slide"><img src="testimoni2.jpeg" alt="Testimoni 2"></div>
+                    <div class="testimonial-slide"><img src="testimoni3.jpeg" alt="Testimoni 3"></div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-button prev-slide">‹</button>
+                    <button class="slider-button next-slide">›</button>
+                </div>
+            </div>
+            <p style="color: #ddd; margin-top: 20px;">Geser untuk melihat testimoni lainnya.</p>
+        </div>
+    </section>
+
+    <section id="konsultasi" class="contact">
+        <div class="container">
+            <h2>Layanan Konsultasi</h2>
+            <p>Bingung memilih layanan yang tepat? Jangan ragu untuk menghubungi kami dan dapatkan konsultasi gratis!</p>
+            <p><a href="https://wa.me/6281292398570" class="consultation-button" target="_blank">Hubungi Kami via WhatsApp</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sebatsz. Didukung oleh <a href="https://rampungin.id/" target="_blank">Rampungin.id</a></p>
+        </div>
+    </footer>
+</body>
+</html>

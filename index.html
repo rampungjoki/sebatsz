@@ -702,6 +702,20 @@
                 });
             });
 
+            // Toggle mobile navigation on button click
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    mobileNav.classList.toggle('open');
+                });
+            }
+
+            // Close mobile navigation on close button click
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    mobileNav.classList.remove('open');
+                });
+            }
+
             // Smooth scroll for "Lihat Layanan Kami" button
             if (heroBtn) {
                 heroBtn.addEventListener('click', function(event) {
@@ -756,11 +770,7 @@
                     card.classList.add('why-choose-card');
                     card.innerHTML = `<h3>${reason.title}</h3><p>${reason.description}</p>`;
                     whyChooseGrid.appendChild(card);
-                    console.log("Card ditambahkan:", reason.title); // Tambahkan log
                 });
-                console.log("Elemen whyChooseGrid ditemukan:", whyChooseGrid); // Tambahkan log
-            } else {
-                console.log("Elemen whyChooseGrid tidak ditemukan!"); // Tambahkan log jika tidak ditemukan
             }
 
             // Testimonial slider functionality
@@ -791,7 +801,7 @@
     </script>
 </head>
 <body>
-    <header>
+     <header>
         <div class="container navbar">
             <div class="logo-container">
                 <img src="sebatsz.jpeg" alt="Sebatsz Logo" class="logo">
@@ -805,10 +815,8 @@
                     <li><a href="#konsultasi">Konsultasi</a></li>
                 </ul>
             </nav>
-            <div class="mobile-nav-toggle">☰</div>
-        </div>
-        <div class="mobile-nav">
-            <span class="close-btn">✕</span>
+            <div class="mobile-nav-toggle">☰</div> </div>
+        <div class="mobile-nav"> <span class="close-btn">✕</span>
             <ul>
                 <li><a href="#layanan">Layanan</a></li>
                 <li><a href="#harga">Harga</a></li>
